@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% backMatter.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is the content file used to provide all the back-matter for the
+%% dissertation template.
+%% This file is included by the template's root file (../dissertation.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% Included for WinEdt project tree only. As long as the following lines are
+%% present (with only one leading %), WinEdt will be able to load the
+%% bibliography databases:
+%input "bibliography/augmentedHaptics.bib"
+%input "bibliography/hapticExploration.bib"
+%input "bibliography/skillLearning.bib"
+%input "bibliography/myPublications.bib"
+%
+%% If we are including a bibliography at the end of the dissertation
+%% controlled by the setting of the endbib boolean in the document's root file),
+%% insert it here:
+\ifendbib%
+  %% Redefine the \bibsection command to be an unnumbered chapter titled
+  %% "Bibliography":
+  \def\bibsection{\unnumberedchapter{Bibliography}}%
+  %% Begin the bibliographysection environment to make the bibliography be
+  %% single-spaced (in compliance with the Graduate School's requirements):
+  \begin{bibliographysection}%
+  \label{sec:bibliography}%
+  \ifperchapterbib%
+    %% If there were bibliographies at the end of each chapter, then this
+    %% bibliography should simply be an alphabetical list (not numbered),
+    %% regardless of the previous citation style.
+    \setcitestyle{authoryear}%
+    %% Also, since we aren't actually making citations out of the date,
+    %% we don't want letters tacked on to distinguish publications by
+    %% the same author in the same year.
+    \providecommand{\natexlab}[1]{}%
+    \renewcommand{\natexlab}[1]{}%
+  \else\fi% end ifperchapterbib
+  %% Produce the bibliography, including all relevant BibTeX databases:
+  \bibliography{bibliography/augmentedHaptics,%
+                bibliography/hapticExploration,%
+                bibliography/skillLearning,%
+                bibliography/myPublications}%
+  \end{bibliographysection}%
+\else \fi%
+%
+\ifVita%
+%% Begin the C.V. environment:
+\begin{vita}%
+%% Include the C.V. contents:
+\import{}{vita}%
+\end{vita}%
+\else \fi % Vita

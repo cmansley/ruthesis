@@ -1,0 +1,111 @@
+The \texttt{ruthesis} document class (\href{../ruthesis.cls}{\texttt{ruthesis.cls}}) is an extension of the \texttt{report} document class; it can be used to prepare dissertation manuscripts that comply with the \href{http://gsnb.rutgers.edu/guide.php3}{style requirements} of the Rutgers Graduate School.
+
+\section{Contributors}
+The \texttt{ruthesis} document class is the work of several contributors.
+The original \texttt{ruthesis.cls} was created by Les Clowney.
+It was based on the \LaTeX\ document style file, \texttt{ruthesis.sty}, to which both Dave Steiner and Tara Madhyastha contributed.
+The document class was updated and combined with this dissertation template by Timothy Edmunds.
+
+\section{Document Options}
+The \texttt{ruthesis} document class defines the following options (in addition to the options provided by the report document class):
+\begin{itemize}
+\item \texttt{10pt}: typesets the manuscript with 10 pt font
+\item \texttt{11pt}: typesets the manuscript with 11 pt font
+\item \texttt{12pt}: typesets the manuscript with 12 pt font
+\item \texttt{electronic}: specifies that the manuscript include features suitable for electronic publication (but not unsuitable for hard-copy).
+    (In practice, this option merely sets the \texttt{electronic} boolean, so that the author can condition such things as the use of the \texttt{hyperref} package using $\backslash$\texttt{ifelec\-tronic}.)
+\item \texttt{prelimdraft}: prepares a draft version of the manuscript (with a different title page, different headers and footers, etc.).
+    Also sets the \texttt{prelimdraft} boolean so that the author can conditionally include material with $\backslash$\texttt{if\-prelimdraft}.
+\item \texttt{nonsubmission}: prepares a version of the manuscript that omits final-submission features (such as the signature block).
+    Also sets the \texttt{nonsub\-mission} boolean so that the author can conditionally include material with $\backslash$\texttt{if\-nonsubmission}.
+\end{itemize}
+
+\section{Booleans}
+The \texttt{ruthesis} document class defines the following booleans on which the manuscript author can condition using the $\backslash$\texttt{if\it{boolean}}$\backslash$\texttt{else}$\backslash$fi \LaTeX\ construct:
+\begin{itemize}
+\item \texttt{electronic}: set by the \texttt{electronic} document class option.
+      true if the manuscript is to be prepared in a method suitable for electronic distribution (e.g., uses the \texttt{hyperref} package).
+\item \texttt{prelimdraft}: set by the \texttt{prelimdraft} document class option.
+      true if the manuscript is to be prepared as a preliminary draft.
+\item \texttt{nonsubmission}: set by the \texttt{nonsubmission} document class option.
+      true if the manuscript is not the final submission version (with signature block).
+\item \texttt{abstract}: set by the $\backslash$\texttt{abstract} command.
+      Determines whether the abstract is typeset.
+      May be set to false by the user after the $\backslash$\texttt{abstract} command in order to suppress the abstract.
+\item \texttt{preface}: set by the $\backslash$\texttt{preface} command.
+      Determines whether the preface is typeset.
+      May be set to false by the user after the $\backslash$\texttt{preface} command in order to suppress the preface.
+\item \texttt{acknowledgements}: set by the $\backslash$\texttt{acknowledgements} command.
+      Determines whether the acknowledgements page is typeset.
+      May be set to false by the user after the $\backslash$\texttt{acknowledgements} command in order to suppress the acknowledgements.
+\item \texttt{dedication}: set by the $\backslash$\texttt{dedication} command.
+      Determines whether the dedication is typeset.
+      May be set to false by the user after the $\backslash$\texttt{dedication} command in order to suppress the dedication.
+\item \texttt{abbreviationspage}: set by the $\backslash$\texttt{abbreviationspage} command.
+      Determines whether the List of Abbreviations is typeset.
+      May be set to false by the user after the $\backslash$\texttt{abbreviationspage} command in order to suppress the List of Abbreviations.
+\end{itemize}
+
+\section{Switch Commands}
+Some of the commands provided by the ruthesis document class are one-way switches:
+\begin{itemize}
+\item $\backslash$\texttt{copyrightpage}: includes a copyright page when typesetting the manu\-script.
+\item $\backslash$\texttt{figurespage}: includes a List of Figures when typesetting the manu\-script.
+\item $\backslash$\texttt{tablespage}: includes a List of Tables when typesetting the manuscript.
+\item $\backslash$\texttt{algorithmspage}: includes a List of Algorithms when typesetting the manuscript.
+\item $\backslash$\texttt{phd}: sets the degree being sought to be a Ph.D.
+\item $\backslash$\texttt{jointumdnj}: indicates that the degree is offered jointly with UMDNJ.
+\end{itemize}
+
+\section{Content Commands}
+The ruthesis document class defines the following commands that the author should use to specify certain types of content:
+\begin{itemize}
+\item $\backslash$\texttt{title}\{{\it{The title of the dissertation}\}}
+\item $\backslash$\texttt{author}\{{\it{The author of the dissertation}\}}
+\item $\backslash$\texttt{degree}\{{\it{The degree being sought}\}}
+      The default is Master of Science (or Doctor of Philosophy if $\backslash$\texttt{phd} is used.
+\item $\backslash$\texttt{joint}\{{\it{The institution offering the joint degree}\}}
+\item $\backslash$\texttt{director}\{{\it{The principal advisor of the author}\}}
+\item $\backslash$\texttt{program}\{{\it{The degree program}\}}
+\item $\backslash$\texttt{submissionyear}\{{\it{Year of submission to the Graduate School}\}}
+      The default is the current year.
+\item $\backslash$\texttt{submissionmonth}\{{\it{Month of submission to the Graduate School}\}}
+      The default is the current month.
+\item $\backslash$\texttt{approvals}\{{\it{The number of committee member signature lines}\}}
+\item $\backslash$\texttt{abstract}\{{\it{The abstract of the dissertation}\}}
+\item $\backslash$\texttt{acknowledgements}\{{\it{The acknowledgements}\}}
+\item $\backslash$\texttt{dedication}\{{\it{The dedication}\}}
+\item $\backslash$\texttt{preface}\{{\it{The preface}\}}
+\item $\backslash$\texttt{abbreviationspage}\{{\it{The abbreviations used in the dissertation}\}}
+\end{itemize}
+
+\section{Environments}
+The new environments defined by the ruthesis document class are:
+\begin{itemize}
+\item \texttt{bibliographysection}: this environment should be used to produce the required single-spacing of the bibliography.
+\item \texttt{vita}: this environment should be used for the C.V.\ at the end of the manuscript.
+\item \texttt{achievementlist}: this environment can be used to create the employment history and publication list in the C.V.
+\end{itemize}
+
+\section{Other Commands}
+Some other commands are defined by the ruthesis document class:
+\begin{itemize}
+\item $\backslash$\texttt{beforepreface}: this command typesets all the material that comes before the preface (i.e., the title page, copyright page, abstract).
+\item $\backslash$\texttt{afterpreface}: this command typesets all the material that comes between the \texttt{beforepreface} material and the body of the dissertation (i.e., the preface, the acknowledgements, the dedication, the table of contents, the lists of figures, tables and algorithms, etc.).
+\item $\backslash$\texttt{appendix}: this command signals that all subsequent chapters are appendices.
+\end{itemize}
+
+\section{Margins}
+The \href{http://gsnb.rutgers.edu/guide.php3}{Graduate School Style Guide} specifies that left margins must be 1.5 inches, and that the top, right, and bottom margins must be 1 inch.
+It is assumed that these margins apply to all pages in the manuscript.
+Since \LaTeX\ is not always successful in complying with the specified margins (due to overfull boxes), the margins defined in the ruthesis document class are:
+\begin{itemize}
+\item Left: 108 pt (1.5")
+\item Right: 92 pt (\ensuremath{1\frac{5}{18}"})
+\item Top: 72 pt (1")
+\item Bottom: 92 pt (\ensuremath{1\frac{5}{18}"})
+\end{itemize}
+
+\section{Single-Sided}
+The style guide never explicitly specifies whether the manuscript should be single- or double-sided, but the fact that the left margin is larger than the right margin on all pages (not just odd-numbered pages) suggests that all pages are to be bound on the left.
+Therefore, the assumption is that pages should be single-sided --- with electronic submission, this only really affects the hard-copy of the title page and abstract that need to handed in.

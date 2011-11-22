@@ -1,0 +1,224 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% header.tex
+%% 2009.01.08 - tedmunds
+%%
+%% This file is the header file used to specify document-wide configuration for
+%% the dissertation template file.
+%% This file is included by the template's root file (../dissertation.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% The Graduate School Style Guide doesn't specify a typeface to use, only that
+%% it should be easy-to-read.
+%% The mathptmx package changes the default roman font family to Times, and uses
+%% the virtual mathptmx fonts for math.
+%\usepackage{mathptmx}
+%% The mathpazo package changes the default roman font family to Adobe
+%% Palatino, and uses the virtual mathpazo fonts for math.
+\usepackage{mathpazo}
+%% The times package changes the default roman font family to Times, but leaves
+%% the default math font as Computer Modern
+%\usepackage{times}
+%% The helvet package changes the sans serif font family to Helvetica.
+\usepackage{helvet}
+
+%% The ifpdf package makes available the pdf boolean that (supposedly)
+%% indicates whether the document is being compiled by pdfLaTeX (or some
+%% equivalent).  This lets the author condition such things as the graphics
+%% extensions, so that the source can be compiled by plain LaTeX as well as
+%% more pdfish variants.
+\usepackage{ifpdf}
+
+%% The import package simplifies a tree-like document source code structure.
+%% When the \include and \input commands load files, any nested \input or
+%% \include (or \includegraphics) commands are treated as though they were
+%% issued at the document root level.
+%% With the \import command, subsequently included files are loaded relative
+%% to the imported directory.
+\usepackage{import}
+
+%% Everybody needs a little math formatting from the good people at the
+%% American Mathematical Society
+\usepackage{amsmath}
+
+%% The \tablespage command induces the generation of the List of Tables page
+\tablespage
+%% The \figurespage command induces the generation of the List of Figures page
+\figurespage
+%% The \algorithmspage command induces the generation of the List of Algorithms
+%% page
+%\algorithmspage
+
+%% Based on the numericalcitation switch (specified in the root document), we
+%% configure the natbib package to either create numerical citations or
+%% the richer author-year format citations.
+\ifnumericalcitation
+%% Use numerical citations, sort the references in ascending order within the
+%% citation, and use square brackets around citations.
+%% Note that although natbib provides the sort&compress option to compress
+%% numerical citation lists (like [3-6] instead of [3,4,5,6]), that option is
+%% less friendly with electronic versions, since the compressed citations don't
+%% get links.
+%% So unless you are sure that you don't want to produce any electronic
+%% versions (or you don't worry about them subtley changing length), steer
+%% clear of that option.
+\usepackage[numbers,sort,square]{natbib}
+\else
+%% Use square braces around citations.
+\usepackage[square]{natbib}
+\fi
+%% Compilation sometimes hangs (and locks the log file) if bibunits is included
+%% before natbib (though seemingly only when the numbers style is used for
+%% natbib).
+\ifperchapterbib
+  \ifendbib
+    %% If we are producing per-chapter bibliographies _and_ a final
+    %% bibliography, we want the citations in each chapter to be automatically
+    %% copied into the citation list for the final bibliography.
+    \usepackage[globalcitecopy]{bibunits}
+  \else
+    %% If we are only having bibliographies at the end of each chapter, no
+    %% arguments are required.
+    \usepackage{bibunits}
+  \fi% end ifendbib
+  %% If we are having end-of-chapter bibliographies, we need to redefine the
+  %% \bibsection command.
+  %% The bibliography will be an unnumbered section titled "References", and
+  %% the section will be included in the table of contents.
+  \def\bibsection{\pagebreak[4]\section*{References}\addcontentsline{toc}{section}{References}}
+\else
+  \usepackage{bibunits}
+  %% The bibliography will be an unnumbered chapter titled "Bibliography".
+  \def\bibsection{\unnumberedchapter{Bibliography}}
+\fi% end ifperchapterbib
+%% There are some bugs in the bibunits package that need to be patched.
+\usepackage{patches/bibunitspatch}
+
+%% The Graduate School Style Guide is not clear/definitive about the citation
+%% style to be used.  But is does seem that if you use numerical citations,
+%% they want them to be in ascending order (i.e., sorted by citation order, not
+%% alphabetically.
+\ifnumericalcitation
+  %% If we are using numerical citation (set in the root document), we need to
+  %% use the ruthesisciteorder BibTeX style file.
+  \ifperchapterbib
+    %% If we are including a bibliography at the end of each chapter, the
+    %% command to set the BibTeX style for all of the bibliographies is
+    %% \defaultbibliographystyle.
+    \defaultbibliographystyle{../bibtexery/ruthesisciteorder}
+    %% If there is a bibliography for each chapter as well, the global
+    %% bibliography should be numberless and in alphabetical order
+    \bibliographystyle{../bibtexery/ruthesis}
+  \else
+    %% If we don't have a bibliography at the end of each chapter, the
+    %% command to set the BibTeX style is the standard \bibliographystyle.
+    \bibliographystyle{../bibtexery/ruthesisciteorder}
+  \fi
+\else
+  %% If we are not using numerical citations, we can use the ruthesis BibTeX
+  %% style file that allows for nice author-year style citations.
+  \bibliographystyle{../bibtexery/ruthesis}
+  \ifperchapterbib
+    %% If we are including a bibliography at the end of each chapter, the
+    %% command to set the BibTeX style for all of the bibliographies is
+    %% \defaultbibliographystyle.
+    \defaultbibliographystyle{../bibtexery/ruthesis}
+  \else
+  \fi
+\fi
+
+%% We define commands for the text of the dissertation's title and author,
+%% since they will be used in a couple of places.
+\newcommand{\titletext}{We Learned \LaTeX\ So You Don't Have To: A Self-Documenting Template for Preparing Dissertations for the Rutgers Graduate School}
+%% If you use any special formatting that won't work in plain text (for the
+%% PDF document information), create a safe version as well.
+\newcommand{\safetitletext}{We Learned LaTeX So You Don't Have To: A Self-Documenting Template for Preparing Dissertations for the Rutgers Graduate School}
+\providecommand{\safetitletext}{\titletext}
+\newcommand{\authortext}{Timothy Edmunds}
+
+%% A handy way of formatting the author's notes-to-self (or -to-advisor) is
+%% to separate them from the surrounding text with an icon, and to insert an
+%% icon in the margin to make the note obvious.
+%% When the document is being compiled for an audience that doesn't need the
+%% notes, they can all be turned off with the notes boolean (set in the root
+%% document), rather than having to do search-and-delete (or -and-comment).
+\ifnotes
+\providecommand{\note}[1]
+    {\marginpar{\LARGE $\spadesuit$}$\spadesuit$ {\bf #1} $\spadesuit$}
+\else
+%% If notes are turned off, just define an empty notes command.
+\providecommand{\note}[1]
+    {}
+\fi % notes
+
+%% In addition to this header file, each chapter can define a header with
+%% commands/packages specific to that chapter.  That way, when a chapter is
+%% not being typeset, the header can be ommitted to simplify things.
+\ifUsefulTechniques
+\input{usefulTechniques/header}
+\else \fi
+\ifAppendices
+\input{appendices/manySubfigsHeader}
+\else \fi
+
+%% When iterating with an advisor or other reader, it may be helpful to
+%% highlight content changes with change-bars.  This can be accomplished
+%% using the changebar package.  When preparing the document for other
+%% audiences, the change-bars can be turned off (in the document root file)
+%% by controlling the changebars boolean.
+\ifchangebars%
+\usepackage{changebar}
+\else%
+%% If change-bars are off, define empty start/end commands.
+\providecommand{\cbstart}{}%
+\providecommand{\cbend}{}%
+\fi% end ifchangebars
+
+%% hyperref must (allegedly) be the _last_ package included
+\ifelectronic
+  %% If the dissertation is being typeset in an electronic-friendly way
+  %% (controlled by the electronic document class option), we'll use
+  %% the hyperref package to create a nicely linked pdf (with clickable
+  %% citations, pdf bookmarks, etc.).
+  \usepackage[verbose,pagebackref, pdftitle={\safetitletext}, pdfauthor={\authortext}, pdfsubject={Dissertation}]{hyperref}
+  \ifpdf\else
+  %% If compling with the LaTeX->dvi->ps->pdf pipeline, the dvips driver
+  %% does not allow link text to wrap at the end of a line (even if you
+  %% add \- hypenation instructions).
+  %% This can cause lots of margin problems.
+  %% The breakurl package addresses this problem, but only for \url links,
+  %% not all the other types of links (like internal document links).
+  %\usepackage{breakurl}
+  %% A workaround is to use the breaklinks option of the hyperref package.
+  %% That option is supposed to be for internal use, but it can be used to
+  %% force wrapping; unfortunately, when viewed with a PDF viewer (rather
+  %% than printed), the active link area will be misplaced.
+  %% If good links are important to you, you might want to consider the
+  %% pdflatex route.
+  \hypersetup{breaklinks}
+  \fi% end ifpdf
+  %% In its capacity as a template, this document has some relative links
+  %% to other files.
+  %% To make relative file links work, we specify an empty prefix.
+  \hypersetup{linkfileprefix={}}
+\else
+  %% If the electronic option is turned off, we'll still use the hyperref
+  %% package, but we'll set it to draft mode.
+  \usepackage[draft]{hyperref}
+\fi % electronic
+%% There some bugs in the backref package (which is used by the hyperref
+%% package to provide links back from a reference to the citation location),
+%% so we'll include a patch to work around the problems.
+\usepackage{patches/backrefpatch}
+%% The hyperref package provides the \autoref command that figures out what
+%% type of entity you are creating a reference to, and makes the name of that
+%% type of entity part of the reference (and part of the hyperlink).
+%% Here we define the names that we want to be used for certain types of
+%% entities.
+\def\chapterautorefname{{C}hapter}
+\def\sectionautorefname{{S}ection}
+\def\subsectionautorefname{\sectionautorefname}
+\newcommand{\subfigureautorefname}{\figureautorefname}
+
+%% Import the file of author-defined common macros
+\import{header/}{commands} 

@@ -1,0 +1,21 @@
+There are a number of different applications (even on the same platform) for compiling \LaTeX\ source files into documents.
+When the end goal is an Adobe Portable Document Format (\texttt{.pdf}) file, the two common choices are:
+\begin{itemize}%
+\item \texttt{pdflatex}: compile directly from the source to a \texttt{.pdf} file
+\item \texttt{latex}, \texttt{dvitops}, \texttt{pstopdf}: \texttt{latex} compiles the source into a \texttt{.dvi} file, \texttt{dvi\-tops} converts the \texttt{.dvi} file to a \texttt{.ps} file, and \texttt{pstopdf} converts the \texttt{.ps} file to a \texttt{.pdf} file.
+\end{itemize}%
+The output of these two different options is often similar, but not exactly the same.
+Also, depending on the method used, different source code is acceptable.
+For instance, when using \texttt{pdflatex}, supported graphics formats are \texttt{.pdf}, \texttt{.png}, and \texttt{.jpg}, but when using \texttt{latex}, \texttt{.pdf} graphics files are not allowed (but \texttt{.eps} files are) and bounding box information is not automatically extracted from raster image file formats (like \texttt{.png} and \texttt{.jpg}).
+Another difference is in support of line-wrapping links produced by the \texttt{hyperref} package.
+\href{http://www.ctan.org/tex-archive/macros/latex/contrib/hyperref/README.pdf} {When compiled with the \texttt{pdftex} driver, \texttt{hyperref} links that would otherwise stick out into the margin (like this one) can be typeset on two lines (providing the link text can be broken, either naturally or according to $\backslash$\texttt{-} hints)}; however, as noted in the \texttt{hyperref} README, the \texttt{dvips} driver does not support that feature.
+The \texttt{hyperref} package's \texttt{breaklinks} option stops the text from being typeset in the margin, but the active link area is misplaced when the electronic document is viewed in a PDF viewer.
+
+The usual course of action is to pick one of these two compiling schemes (\texttt{pdflatex} is recommended), stick with it, and not worry about code that doesn't compile with the other method.
+This option is particularly attractive for a dissertation, where the author does not have to worry about interoperability with a co-author's development environment.
+To maintain generality though, this template has been designed to work with either of the two compiler schemes mentioned above.
+To make this possible, some use has been made of the \texttt{ifpdf} package (which provides the $\backslash$\texttt{ifpdf} test that signals whether the document is being compiled directly to PDF).
+Specifically, to deal with the graphics file format incompatibility mentioned above, a different graphics file extension list is used depending on the result of the $\backslash$\texttt{ifpdf} test.
+When compiling directly to PDF, the command $\backslash$\texttt{DeclareGraphicsExtensions\{.png,.jpg,.pdf\}} is used to signal that $\backslash$\texttt{includegraphics\{someImage\}} commands should search for files named \texttt{someImage.png}, \texttt{someImage.jpg}, or \texttt{someImage.pdf}.
+When compiling to an intermediate file format, $\backslash$\texttt{DeclareGraphicsExtensions\{.eps,.png,.jpg\}} is used.
+To allow different chapters to have different variations of these search orders, the commands are issued at the beginning of chapters that include graphics (e.g., in \href{./usefulTechniques/chapterHeader.tex}{usefulTechniques/chapterHeader.tex} and \href{./appendices/manySubfigsChapterHeader.tex}{appendices/many\-SubfigsChapterHeader.tex}). 

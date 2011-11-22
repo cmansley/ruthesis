@@ -1,0 +1,180 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% dissertation.tex
+%% 2009.01.08 - tedmunds
+%%
+%% This file is the root file of a dissertation template illustrating the use
+%% of the ruthesis document class.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Use the ruthesis document class.
+%% Since this template is located down-tree from ruthesis.cls, we specify the
+%% path to the document class.
+%% See the documentation of ruthesis.cls for a full list of document class
+%% options.
+\documentclass[12pt,electronic,prelimdraft,nonsubmission]{../ruthesis}
+
+%% Insert a special command to make sure that LaTeX (or pdfLaTeX, or whatever)
+%% doesn't compile the manuscript on A4 pages
+\special{papersize=8.5in,11in}
+
+%% Define some booleans that can be used (along with the booleans provided by
+%% the ruthesis document class) to easily configure the manuscript.
+%%
+%% Whether there should be a reference section at the end of each chapter
+\newif{\ifperchapterbib}
+\perchapterbibtrue
+%% Whether there should be a bibliography at the end of the dissertation
+\newif{\ifendbib}
+\endbibtrue
+%% Whether citations should be numerical (as opposed to author-date)
+\newif{\ifnumericalcitation}
+\numericalcitationfalse
+%% Whether changebars should be produced
+\newif{\ifchangebars}
+\changebarstrue
+%% Whether author's notes should be rendered
+\newif{\ifnotes}
+\notestrue
+%% Whether the personal touches (acknowledgements and dedication) should be
+%% typeset
+\newif{\ifpersonal}
+\personaltrue
+%% Control which chapters are included
+\newif{\ifIntro}
+\newif{\ifDocClass}
+\newif{\ifTemplateStructure}
+\newif{\ifUsefulTechniques}
+\newif{\ifAppendices}
+\Introtrue
+\DocClasstrue
+\TemplateStructuretrue
+\UsefulTechniquestrue
+\Appendicestrue
+\newif{\ifVita}
+\Vitatrue
+
+%% The ruthesis document class produces a modified header if the draft option
+%% is declared, but it can be redefined to include (for instance) your name
+\ifprelimdraft
+  \renewcommand{\draftheading}
+               {\bfseries tedmunds
+                dissertation draft\hfil\the\month/\the\day/\the\year}
+\else\fi% end ifprelimdraft
+
+%% Include the header file that contains the rest of the document
+%% configuration
+\input{header/header}
+
+%% Some trickery for WinEdt users...
+%% The bibunits declaration has to be in the root file so that WinEdt knows to
+%% look for multiple .aux files.
+%% However, it seems that natbib doesn't like being declared after bibunits.
+%% But (allegedly), the hyperref package (included in the header) likes to be
+%% the last package included.
+%% So we'll include bibunits in the header, and try to trick WinEdt.
+\newif{\iftrickwinedt}
+\trickwinedtfalse
+\iftrickwinedt
+  %% This code is never executed
+  \usepackage{bibunits}
+\else\fi% end iftrickwinedt
+
+
+%% Begin the body of the document
+\begin{document}
+%
+%
+%% Import the front-matter
+\import{frontMatter/}{frontMatter}%
+%
+%
+%% Import the introduction (unless the Intro boolean was set to false in the
+%% preamble above.
+\ifIntro%
+\chapter{Introduction}%
+\label{sec:introduction}%
+\import{introduction/}{introduction}%
+\else\fi% end ifIntro
+%
+%
+%% Import the chapter that describes the ruthesis document class.
+\ifDocClass%
+\chapter{\texttt{ruthesis} Document Class}%
+\label{sec:docClass}%
+\import{docClass/}{docClass}%
+\else\fi% end ifDocClass
+%
+%
+%% Import the chapter that describes the structure of this template.
+\ifTemplateStructure%
+\chapter{Dissertation Template}%
+\label{sec:templateStructure}%
+\ifperchapterbib%
+%% If we are doing references at the end of each (meaty) chapter, begin the
+%% bibunit for this chapter:
+\begin{bibunit}%
+\else\fi% end ifperchapterbib
+\import{templateStructure/}{templateStructure}%
+%% If called for, insert the chapter's reference section:
+\ifperchapterbib%
+  %% Flush out any figures that haven't been placed; the References section
+  %% will begin on a new page.
+  \clearpage
+  %% Produce the bibliography for this chapter.  We use the
+  %% bibliographysection environment to make sure we get single-spacing.
+  \begin{bibliographysection}%
+  %% Specify each of the BibTeX database files that are referenced in this
+  %% chapter.
+  \putbib[bibliography/myPublications]%
+  \end{bibliographysection}%
+  \end{bibunit}%
+\else\fi% end ifperchapterbib
+\else\fi% end ifTemplateStructure
+%
+%
+%% Import the chapter that gives some examples of useful techniques.
+\ifUsefulTechniques%
+\chapter{Useful \LaTeX\ Techniques for Dissertations}%
+\label{sec:ut}%
+\ifperchapterbib%
+%% If we are doing references at the end of each (meaty) chapter, begin the
+%% bibunit for this chapter:
+\begin{bibunit}%
+\else\fi% end ifperchapterbib
+%% Import the chapter contents:
+\import{usefulTechniques/}{usefulTechniques}%
+%% If called for, insert the chapter's reference section:
+\ifperchapterbib%
+  %% Flush out any figures that haven't been placed; the References section
+  %% will begin on a new page.
+  \clearpage
+  %% Produce the bibliography for this chapter.  We use the
+  %% bibliographysection environment to make sure we get single-spacing.
+  \begin{bibliographysection}%
+  %% Specify each of the BibTeX database files that are referenced in this
+  %% chapter.
+  \putbib[bibliography/augmentedHaptics,%
+          bibliography/hapticExploration,%
+          bibliography/skillLearning]%
+  \end{bibliographysection}%
+  \end{bibunit}%
+\else\fi% end ifperchapterbib
+\else\fi% end ifUsefulTechniques
+%
+%
+%% Import the Conclusion chapter.
+\chapter{Conclusion}%
+\label{sec:conclusion}%
+\import{conclusion/}{conclusion}%
+%
+%
+%% Import the appendices
+\import{appendices/}{appendices}%
+%
+%
+%% Import the back-matter
+\import{backMatter/}{backMatter}%
+%
+\end{document}
+%%%%%%%%% End of thesis.tex

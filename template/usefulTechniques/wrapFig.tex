@@ -1,0 +1,49 @@
+\begin{floatingtable}[r]{%
+\captionsetup[subfloat]{labelformat=empty}%
+  \centering%
+    \begin{tabular}{|r|l|}%
+      \hline%
+      \multicolumn{2}{|c|}{Target}\\%
+      \hhline{|*2{=}|}%
+      $\mu_0$ & 0.1\\%
+      \hline%
+      $a_1$ & 0.783\\%
+      \hline%
+      $a_2$ & 0.1165\\%
+      \hline%
+      $\sigma$ & 0.05\\%
+      \hline%
+    \end{tabular}%
+  \ %
+    \begin{tabular}{|r|l|}%
+      \hline%
+      \multicolumn{2}{|c|}{Distractor}\\%
+      \hhline{|*2{=}|}%
+      $\mu_0$ & 0.1\\%
+      \hline%
+      $a_1$ & 0.25\\%
+      \hline%
+      $a_2$ & 0.1\\%
+      \hline%
+      $\sigma$ & 0.1\\%
+      \hline%
+    \end{tabular}%
+  %% Remove a little vertical space to make things tidy
+  \vspace{-0.5\baselineskip}%
+  }% end of the argument to floatingtable
+  %% Unfortunately, while the ruthesis document class fixes floats to be
+  %% single-spaced, this environment is a floatingtable, not a float.
+  %% Until someone adds functionality to the ruthesis document class, we
+  %% will manually make the caption single-spaced:
+  \begin{singlespace}%
+  \caption[Texture Parameters]{%
+    Autoregression parameters used to generate the target and distractor textures.
+  }%
+  \label{tab:textureParams}%
+  \end{singlespace}%
+\end{floatingtable}%
+Given the relatively large column-width of this single-column dissertation format, some figures (or tables) are simply too small to be placed in the entire margin-to-margin space that is the default.
+In this situation, one alternative is to find (or make) another small figure that fits well next to your problem child.
+If that solution is not tenable, then another alternative is to place the figure within the text in such a way that the surrounding text wraps fluidly around the figure.
+\autoref{tab:textureParams} is an example of this type of wrapped figure (or table).
+Wrapped figures and wrapped tables can be created using the \texttt{floatflt} package. 

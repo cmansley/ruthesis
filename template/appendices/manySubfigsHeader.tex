@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% manySubfigsheader.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is the header file used to perform chapter-specific configuration
+%% for one chapter in the dissertation template.
+%% This file is for preamble commands that are needed by the chapter (but not
+%% generally needed by the document as a whole).
+%% There is another file (./manySubfigsChapterHeader) that can be used to
+%% perform non-preamble configuration at the start of the chapter.
+%% Note that the commands issued (and packages used) here may not _conflict_
+%% with the rest of the document; they should play nicely.
+%% This file is included by the main header (../header/header.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% This chapter uses the graphicx package for figures.
+\usepackage{graphicx}
+%% This chapter uses the subfig package to break a figure into parts (on
+%% separate pages) while maintaining the sub-figure labels.
+\usepackage{subfig}
+%% The alphalph package allows us to have more than 26 things in an alphabetically numbered
+%% list
+\usepackage{alphalph}
+
+%% Replace the default \alph command with \alphalph (from the alphalph package) so that
+%% \alph can handle values higher than 26.  This is useful in situations where you have
+%% more than 26 subfigures in a figure.  Or more than 26 appendices.
+\renewcommand{\alph}[1]{\alphalph{\value{#1}}} 

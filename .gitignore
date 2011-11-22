@@ -1,0 +1,14 @@
+dissertation.pdf
+*.aux
+*.bbl
+*.blg
+*.brf
+*.cb
+*.cb2
+*.dvi
+*.lof
+*.ps
+*.out
+*.toc
+*.lot
+*.prj.bak

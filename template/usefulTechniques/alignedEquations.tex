@@ -1,0 +1,22 @@
+Here is an example of the use of the commands defined in the headers to make consistent typesetting easy.
+We defined a macro to make it easy to typeset this quantity, \proxy, whether in math-mode or not.
+We also defined its derivative, \proxyVel.
+
+The \texttt{amsmath} package provides the \texttt{align} environment that is nice for typesetting multi-row equations:
+\begin{align}
+\proxy &= \master \\
+\userForce &= 0
+\end{align}
+
+The \texttt{align} environment can be used for more complicated equations too:
+\begin{align}
+\userForce &= \left\{\begin{array}{cl}
+  k(\floor - \master), & \master < \floor\\
+  0, & \master \geq \floor
+  \end{array}\right. \\
+\proxy &= \left\{\begin{array}{cl}
+  \floor, & \master < \floor\\
+  \master, & \master \geq \floor
+  \end{array}\right.
+\end{align}
+

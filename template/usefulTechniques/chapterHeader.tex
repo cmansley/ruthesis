@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapterHeader.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is a pseudo-header file that provides setup for a single chapter.
+%% The commands found here might normally be placed in a true header (i.e.,
+%% before the \begin{document} command, but then they would affect the whole
+%% document, rather than just this chapter.
+%% So any commands in this file must be safe to issue in the document body (not
+%% the preamble).
+%% This file is included by the chapter's root file
+%% (./usefulTechniques.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% The graphicx package defines the \DeclareGraphicsExtensions command that
+%% allows the author to specify the search order preference of graphics files
+%% extensions.
+%% Since pdf and non-pdf flavours of LaTeX have different graphic file format
+%% options, we can use the \ifpdf condition to specify two different search
+%% orders; then when graphics are inserted (via the \includegraphics command),
+%% the author just leaves off the extension.
+%% (Of course, compilation will only work in both cases if the author has
+%% provided appropriately-extensioned versions of the graphics file).
+\ifpdf%
+  \DeclareGraphicsExtensions{.png,.jpg,.pdf}%
+\else%
+  \DeclareGraphicsExtensions{.eps,.png,.jpg}%
+  %% For this chapter, we are going to deal with LaTeX's inability to compute
+  %% bounding boxes for raster files by creating a .bb file for each raster
+  %% file (.png, .jpg) that gives the dimensions of the image (in pixels).
+  %% These commands let the graphicx package know that when a .png or .jpg
+  %% file is included (by \includegraphics), it should look for a file with
+  %% the same name but the .bb extension to find the bounding box.
+  \DeclareGraphicsRule{.png}{eps}{.bb}{}%
+  \DeclareGraphicsRule{.jpg}{eps}{.bb}{}%
+\fi%
+%
+%% Here are some macros that are only used in this one chapter:
+\providecommand{\proxyVel}{\ensuremath{\dot{\proxy}}}%
+\providecommand{\masterVel}{\ensuremath{\dot{\master}}}%
+\providecommand{\slabTop}{\ensuremath{slab_{top}}}%
+\providecommand{\bottom}{\ensuremath{slab_{bottom}}}%
+\providecommand{\thickness}{\ensuremath{slab_{thickness}}}%
+\providecommand{\floor}{\ensuremath{x_c}}%
+\providecommand{\proxyForce}{\ensuremath{\vectorize{f_p}}}%
+\providecommand{\maxDamping}{\ensuremath{\alpha_{max}}}%
+\providecommand{\carvingForce}{\ensuremath{\vectorize{f_{resist}}}}%

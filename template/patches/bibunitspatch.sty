@@ -1,0 +1,33 @@
+%% The standard bibunits package does not surround the input of
+%% \@bibunitname.aux with \makeatletter and \makeatother, because
+%% (in the words of the documentation) "this file is supposed to
+%% contain only bibliography related macros without any @'s".
+%% However, when using the backref package (as part of the
+%% hyperref package), the .aux file contains \@writefile commands
+%% that write \backcites to the .brf file.
+%% As a workaround, we surround the \@input{\@bibunitname.aux}
+%% with \makeatletter and \makeatother (in both \@startbibunit
+%% and \@finishstartedbibunit).
+\def\@startbibunit{%
+  \global\let\@startbibunitorrelax\relax
+  \global\let\@finishbibunit\@finishstartedbibunit
+  \global\advance\@bibunitauxcnt 1
+  \if@filesw
+    {\endlinechar-1
+    \makeatletter\@input{\@bibunitname.aux}\makeatother}%
+    \immediate\openout\@bibunitaux\@bibunitname.aux
+    \immediate\write\@bibunitaux{\string\bibstyle{\@localbibstyle}}%
+  \fi
+}
+\def\@finishstartedbibunit{%
+  \if@filesw
+    \immediate\closeout\@bibunitaux
+  \fi
+  \ifx\bibunits@rerun@warning\@empty
+    \if@filesw
+       {\endlinechar-1
+       \let\@namedef\@xtestdef
+       \makeatletter\@input{\@bibunitname.aux}\makeatother}%
+    \fi
+  \fi
+}

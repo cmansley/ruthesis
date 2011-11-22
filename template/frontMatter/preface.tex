@@ -1,0 +1,36 @@
+The \href{http://gsnb.rutgers.edu/guide.php3}{Graduate School Style Guide} states:
+\begin{quotation}
+If a thesis or dissertation is composed in part or in full of whole chapters or independent articles or reports already published, the preface or acknowledgments page must indicate this and give citations to the earlier publications.
+Even if the portions of previous publications are more partial, such acknowledgement in the front matter is recommended.
+\end{quotation}
+Based on that requirement/recommendation, something like the following paragraph seems to suffice.
+
+\ifperchapterbib%
+  %% If there is a bibliography at the end of each chapter, then the final
+  %% bibliography (which, for now, we assume exists) will be an alphabetical
+  %% list, so the authoryear citation style makes most sense.
+  \setcitestyle{authoryear}%
+\else\fi% end ifperchapterbib
+Portions of this dissertation are based on work previously published or submitted for publication by the author~\citep{Edmunds:2006:ISMAR,Edmunds:2008:HAPTICS,Edmunds:2009:WHC}.
+%
+\ifchangebars%
+\section*{\protect{\cbstart}Summary of Changes}%
+The preface also seems like a good place to put a summary of changes in iterative drafts (where change bars are enabled).
+Here is a list of (fake) changes that have been made to this template document.
+%% The itemize environment is a bit to spacious to fit well here, so we'll
+%% use a custom list instead:
+\begin{list}{\labelitemi}{\topsep 0pt%
+               \itemsep -0.1\baselineskip}%
+\item This Summary of Changes has been added to the preface.
+\ifIntro%
+\ifperchapterbib%
+\item A section describing the document structure has been added to the introduction (\autoref{sec:introduction:roadmap}).
+\else\fi% end ifperchapterbib
+\else\fi% end ifIntro
+\ifUsefulTechniques%
+\item The caption in \autoref{fig:apparatus} has been made even longer.
+\else\fi% end ifUsefulTechniques
+\item The bibliography has been updated to reflect the acceptance for publication of a paper previously identified as under review~\citep{Edmunds:2009:WHC}.
+\end{list}%
+\cbend%
+\else\fi% end ifchangebars

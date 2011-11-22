@@ -1,0 +1,49 @@
+The Graduate School has \href{http://gsnb.rutgers.edu/guide.php3}{this} to say about the format of References, Citations, and Bibliography:
+\begin{quote}
+Footnotes at the bottom page[sic], endnotes at the ends of chapters or at the end of manuscript.
+Number notes consecutively.
+When notes are at the end of chapters, each chapter's notes should begin with the number one (1).
+Be consistent throughout and conform to generally accepted practice in the discipline.
+\end{quote}
+There is a lot of room for self-contradiction in these instructions; for example, the generally accepted practice in your discipline may be to order references alphabetically, rather than by citation order.
+Also, some disciplines may use author-date style citations, rather than numbers.
+For this reason, this template distribution includes some different options for how to include bibliographies in the manuscript.
+
+Of course, part of the appeal of preparing a manuscript in \LaTeX\ is that references can be automatically selected for inclusion from a database and typeset according to a \BibTeX\ style.
+However, basic \BibTeX\ technology has been improved on by more powerful \LaTeX\ packages.
+The specific package recommended (and supported by this template) is \texttt{natbib}.
+The \texttt{natbib} package is a reimplementation of \LaTeX's $\backslash$\texttt{cite} functionality that allows for more configurable citation styles (such as author-year, numerical, annotated).
+\texttt{natbib} also works with the \texttt{hyperref} package to create hyperlinks from citation to bibliography (and, with the \texttt{backref} option, from the bibliography to the citation).
+From an author's perspective, the main change that comes with using the \texttt{natbib} package is that use of the $\backslash$\texttt{cite} command is replaced by either $\backslash$\texttt{citep} (for parenthetical citations --- like this~\citep{Edmunds:2005:ICDE}) or $\backslash$\texttt{citet} (for textual citations --- like those used by \citet{Kaufman:2005:SIGGRAPH}).
+For more information on the citation capabilities of the \texttt{natbib} package, check out the \href{http://merkel.zoneo.net/Latex/natbib.php}{Reference sheet for \texttt{natbib} usage}.
+
+\subsection{\BibTeX\ Style Files}
+\label{sec:templateStructure:natbib:bst}%
+As mentioned above, the Graduate School Style Guide does not specify one set style for the typesetting of citations and bibliographies (except that bibliographies must be single-spaced).
+In some disciplines, numerical citations may be the ``generally accepted practice,'' while in others, the author-date style might be the norm.
+Also, the information included in the bibliography entries might vary.
+The typesetting of the bibliographic entries is controlled by a \BibTeX\ style file (\texttt{.bst}).
+In order to be able to do things like author-year style citations, \texttt{natbib} requires special \texttt{.bst} files.
+Included in this bundle are two different reference styles: \href{../bibtexery/ruthesis.bst}{\texttt{ruthesis.bst}} and \href{../bibtexery/ruthesisciteorder.bst}{\texttt{ruthesisciteorder.bst}}.
+
+\texttt{ruthesis.bst} is a style file for use with author-year style citations; it produces a list of bibliography entries in alphabetical order (by first author's last name).
+Since space constraints are not usually a problem in dissertation manu\-scripts, relatively little abbreviation is used in the typesetting of the bibliographic entries.
+
+The second \BibTeX\ style file, \texttt{ruthesisciteorder.bst}, is a \texttt{natbib} friendly style that sorts the bibliography entries by the order of citation (to comply with the Graduate School's instruction that notes should be numbered consecutively).
+
+As well as specifying the appropriate \BibTeX\ style, \texttt{natbib} has to be properly configured to select the desired citation/bibliography scheme.
+In this template, the choice between using numerical citations (and hence sorting by citation order) or author-year citations is controlled by the \texttt{numericalcitation} boolean defined in the root source file.
+By setting the value of this switch, the author can select from one of these two citation schemes.
+(See \href{./header/header.tex}{\texttt{header/head\-er.tex}} to find out how the switch's value affects the setup of \texttt{natbib}.)
+
+\subsubsection{Custom Styles}
+Not all dissertation authors may be satisfied with these two bibliography style choices.
+A particularly likely scenario is that an author may want to change how the bibliographic entries are typeset (for example, to list authors as Last Name, First Name).
+Unfortunately, \BibTeX\ style files are not very easy to hand-edit.
+The best solution for authors who need to change the bibliography style is probably to use the \texttt{custom-bib} package to generate a new bibliography (this is the method that was used to create the style files discussed above).
+
+The \texttt{custom-bib} package provides an interactive process for creating a \texttt{.bst} file for the desired typesetting style.
+The result of the interactive process is a batch job (\texttt{.dbj} file) that can be processed by \LaTeX\ to produce the \texttt{.bst} file.
+For completeness, the batch job files that were used to produce \texttt{ruthesis.bst} and \texttt{ruthesisciteorder.bst} are also included in this distribution (the files are \href{../bibtexery/ruthesis.dbj}{\texttt{ruthesis.dbj}} and \href{../bibtexery/ruthesisciteorder.dbj}{\texttt{ruthesisciteorder.dbj}}, respectively).
+
+Note that after the automated generation of the \texttt{.bst} files, some hand-editing was done (as noted in the comments at the beginning of the \texttt{.bst} files) to provide \texttt{hyperref}-compatible D.O.I.\ links.

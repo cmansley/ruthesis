@@ -1,0 +1,58 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% vita.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is the content file containing the author's C.V.
+%% This file is included by the template's back-matter file (./backMatter.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% The sub-title of the C.V. is the author's name
+\heading{\authortext}%
+\vspace{15pt}%
+%
+%% List of colleges attended, with dates, subjects, and degrees in reverse
+%% chronological order
+\begin{achievementlist}{xxxx--xxxx}
+\item[1996--2001] B.~Sc. from an undergraduate university
+\end{achievementlist}
+%
+%% List of positions held since the last undergraduate degree (in reverse
+%% chronological order).
+\begin{achievementlist}{xxxx--xxxx}
+\item[2007--08] Bevier Fellow, Department of Computer Science, Rutgers University
+\item[2002--07] Graduate/Teaching assistant, Department of Computer Science, Rutgers University
+\item[2001--02] Project Manager, Real World Company Ltd.
+\end{achievementlist}
+%
+%% To simplify the publication list, we are treating it as a special
+%% bibliography.
+%% The ruvita BibTeX style file sorts citations in reverse chronological
+%% order.
+\begin{bibunit}[../bibtexery/ruvita]%
+% We don't want the C.V. citations to be copied to the global bibliography
+% (since the global bibliography has nothing to do with the vita):
+\globalcitecopyfalse%
+%% We don't want any backrefs from the C.V.
+\let\savedbackref\backref%
+\providecommand{\backref}[1]{}%
+\renewcommand{\backref}[1]{}%
+%% Produce hidden citation commands for every entry in the database:
+\nocite{*}
+%% Since we are just producing a list of publications by date, we want natbib's
+%% authoryear style (rather than numbers or whatever):
+\setcitestyle{authoryear}%
+%% The publications list will be produced as a series of items; we'll stick them
+%% inside another achievementlist:
+\begin{achievementlist}{xxxx--xxxx}
+\item[] {\bf Publications}
+%% Make the bibliography.
+%% Since we used the \nocite{*} command above, the specified BibTeX database(s)
+%% should only contain the publications that are to appear in the author's
+%% publication list.
+\putbib[bibliography/myPublications]%
+\end{achievementlist}
+%% Even though we expect the Vita to be the last thing in the document, we'll
+%% restore the saved backref command
+\let\backref\savedbackref%
+\end{bibunit}%

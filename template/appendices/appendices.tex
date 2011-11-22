@@ -1,0 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% appendices.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is the content file used to provide all appendices for the template
+%% dissertation.
+%% This file is included by the template's root file (../dissertation.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% Issue the \appendix command so that all subsequent chapters are labelled as
+%% appendices:
+\appendix%
+%
+\ifAppendices%
+\chapter{Many Subfigures}%
+\label{app:manySubFigs}%
+\import{}{manySubfigs}%
+\else\fi% end ifAppendices

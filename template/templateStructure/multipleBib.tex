@@ -1,0 +1,59 @@
+In \autoref{sec:templateStructure:natbib} we described how \texttt{natbib} can be used to create attractive citations and bibliographies while satisfying some of the Graduate School's style dictums.
+However, we did not address how to achieve the ``references at the end of each chapter'' that the style guide refers to as one option.
+Even when only a single bibliography at the end of the dissertation is produced, this template uses multiple bibliographies, since the C.V.\ publication list is produced by \BibTeX\ (now would be a good time to mention that in addition to the two \texttt{.bst} files discussed in \autoref{sec:templateStructure:natbib:bst}, this bundle also includes a \href{../bibtexery/ruvita.bst}{\BibTeX\ style file for chronological publication lists}).
+
+The default behaviour of \LaTeX\ is to handle a single bibliography in a document, but there are a number of \LaTeX\ packages that provide support for multiple bibliographies (e.g., \texttt{chapterbib}, \texttt{multibib}).
+The package used by this template is \texttt{bibunits}; this package has been found to work well with \texttt{natbib}, \texttt{hyperref}, and the template's structure.
+The \texttt{bibunits} package works by encapsulating portions of the document in a \texttt{bibunit} environment; within that \texttt{bibunit} environment, the $\backslash$\texttt{putbib} command can be used to produce a bibliography containing the references cited within the \texttt{bibunit}.
+E.g.:
+\begin{quotation}%
+\begin{verbatim}
+\begin{bibunit}%
+%% Include the contents of a chapter
+\import{}{someChapter}%
+%% Create a bibliography section (defined by ruthesis.cls) at
+%% the end of the chapter
+\begin{bibliographysection}%
+%% Specify each of the BibTeX database files that are
+%% referenced in this chapter.
+\putbib[bibliography/neuroControl,%
+        bibliography/basketWeaving]%
+\end{bibliographysection}%
+\end{bibunit}%
+\end{verbatim}%
+\end{quotation}%
+
+In this template, the \texttt{bibunits} package is always used (since the C.V.\ publication list is produced as one \texttt{bibunit}), but the inclusion of a References section at the end of each chapter is controlled by the \texttt{perchapterbib} boolean defined at the beginning of the \href{./dissertation.tex}{root source file}.
+
+The \texttt{bibunits} package also supports the generation of an overall bibliography that contains copies of the references from each of the \texttt{bibunits}.
+This feature is used to generate a bibliography at the end of the dissertation (if called for by the \texttt{endbib} boolean defined in the root source file).
+Note that the references in the C.V.\ publication list are excluded from this overall bibliography by calling the \texttt{bibunits} $\backslash$\texttt{globalcitecopyfalse} command within the \href{./backMatter/vita.tex}{C.V.\ \texttt{bibunit}}.
+
+\subsection{A Word About Editors}
+Many IDE-like \LaTeX\ editors try to help automatically compile a document by executing a set pattern of commands (like \texttt{latex}, \texttt{bibtex}, \texttt{latex}, \texttt{latex}, \texttt{latex}), making certain filename assumptions (such as the assumption that \texttt{latex sourceName.tex} will produce a single auxiliary file, \texttt{sourceName.aux}, that contains all the document's citations, and that \texttt{bibtex} only needs to be executed on that one file).
+Beware of such assumptions; the \texttt{bibunits} package produces a separate \texttt{.aux} file for each \texttt{bibunit} (called \texttt{bu1.aux}, \texttt{bu2.aux}, \texttt{bu3.aux}, etc.).
+The good news is that up-to-date versions of the \texttt{bibtex} executable seem to handle \texttt{bibunits}'s output correctly.
+However, if the editor is trying to do its own processing to tell you what entries are in your bibliography, the editor needs to understand about \texttt{bibunits} as well.
+
+\subsubsection{Windows (WinEdt)}
+If you have an up-to-date version of \href{http://www.winedt.com}{WinEdt}, then it knows what to do.
+To let WinEdt populate the list of references in your \BibTeX\ databases, include them all in a comment (one \% only).
+E.g.:
+\begin{quotation}%
+\begin{verbatim}
+%input "bibliography/neuroControl.bib"
+%input "bibliography/basketWeaving.bib"
+%input "bibliography/myPublications.bib"
+\end{verbatim}%
+\end{quotation}%
+
+\subsubsection{OS X (TeXShop)}
+Recent versions of \href{http://www.uoregon.edu/~koch/texshop/}{TeXShop} include \texttt{latexmk}, a collection of perl scripts for executing \texttt{latex} (and auxiliary programs like \texttt{bibtex}) the requisite number of times to resolve cross references, etc.
+When the Typeset button is pressed, the command in the selection-list next to the button is executed; if \texttt{latexmk} is selected, all the necessary programs should be run (similarly with \texttt{pdflatexmk} for producing \texttt{.pdf}s directly)\footnote{Despite debugging efforts, using \texttt{latexmk} with TeXShop does not work with the PNG format image files used in this template.
+The conditional code that has been included to make \texttt{latex} happy with \texttt{.png} and \texttt{.jpg} files (see \autoref{sec:templateStructure:compiling}) works on the Windows \texttt{latex}$\rightarrow$\texttt{dvi2ps}$\rightarrow$\texttt{ps2pdf} pipeline, but \texttt{latexmk} produces improper \texttt{.dvi} files.
+Using \texttt{pdflatexmk} works.}.
+
+\subsection{Troubleshooting}
+If the use of the \texttt{bibunits} package causes problems, and per-chapter bibliographies are not required, the use of the package can be eliminated, as long as the C.V.\ publication list is typeset manually.
+One way to do this is to create a separate \texttt{.tex} file with just one bibliography (the publication list), and copy the resulting \texttt{.bbl} file into the source for the C.V.
+Of course, that entire process has to be re-executed any time the content or formatting of the publication list needs to be changed.

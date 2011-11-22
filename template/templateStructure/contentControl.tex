@@ -1,0 +1,24 @@
+As described in \autoref{sec:docClass}, the \texttt{ruthesis} document class includes a number of options that can be used to control the typesetting of the manuscript.
+However, there are any number of aspects of the document that the author may wish to control throughout the development process.
+For this reason, it is useful to define author-set switches in a central location to control the typesetting of the dissertation.
+For example, if a committee member mentions that he doesn't like references at the end of each chapter, it is handy to be able to change a single switch from true to false, rather than having to go digging through multiple files to comment out all the source code that generates per-chapter bibliographies.
+
+This template defines a number of such switches at the beginning of the root source file (in the preamble).
+The purpose of each switch is described in the adjoining comments, and some of the switches are mentioned specifically at various places in this document.
+
+One set of switch is used specifically to control the inclusion of content.
+Dissertations tend to be long documents, and it is often beneficial to be able to typeset just a portion (a chapter or two).
+To control the inclusion of content, this template defines a switch for each chapter (e.g., $\backslash$\texttt{ifTemplateStructure} for this chapter);
+then whenever commands are issued that depend on the assumption that the chapter is to be typeset (like the $\backslash${\texttt{import}} command that includes the chapter), the commands are embedded in a check of the switch.
+For example:
+\begin{quotation}%
+\begin{verbatim}
+\ifTemplateStructure%
+  \chapter{Dissertation Template}%
+  \label{sec:templateStructure}%
+  \import{templateStructure/}{templateStructure}%
+\else\fi% end ifTemplateStructure
+\end{verbatim}%
+\end{quotation}%
+Similar switches are used to control the inclusion of the C.V., the Acknowledgements, etc.
+ 

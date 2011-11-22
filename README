@@ -1,0 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+This distribution includes the ruthesis document class for preparing Rutgers
+dissertation manuscripts in LaTeX (ruthesis.cls).  It also includes a LaTeX
+template for use of the ruthesis document class (in the template folder).
+Also, in the bibtexery folder are some BibTeX style files useful for the
+typesetting of bibliographies (including C.V. publication lists) that satisfy
+the requirements of the Rutgers Graduate School.
+
+The ruthesis document class and the accompanying template are documented in the
+file: template/dissertationTemplate.pdf.

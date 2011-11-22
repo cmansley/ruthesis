@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% commands.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is a header file used to specify document-wide macros.
+%% This file is included by the template's main header file (./header.tex)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Create a command for typesetting the BibTeX logo.
+%% The \providecommand command is used (instead of newcommand) incase some
+%% package already provides the logo.
+\providecommand{\BibTeX}{{\sc Bib}\TeX}
+
+%% Define a \termdefinition command that standardizes the typesetting of newly
+%% introduced terminology.
+\newcommand{\termdefinition}[1]{\emph{#1}}
+
+%% Define a \vectorize command that will typeset the argument in a bold-face
+%% font, indiciative of a non-scalar variable.
+\newcommand{\vectorize}[1]{\ensuremath{\mathbf#1}}
+
+%% Define a \degree command as a shortcut to produce the degrees symbol.
+%% (We use \providecommand so that if the author is using a package that
+%% already provides a nice degree symbol, it won't be replaced).
+\providecommand{\degree}{\ensuremath{^\circ}}
+
+%% If you want to use unit notation without worrying about whether you are in
+%% math-mode, you can define a nice consistent typesetting
+\newcommand{\newtons}{\ensuremath{\mathrm{N}}}
+\newcommand{\metres}{\ensuremath{\mathrm{m}}}
+\newcommand{\millimetres}{\ensuremath{\mathrm{mm}}}%
+
+%% There does not seem to be a standard command for rendering the mathematical
+%% operation of taking the minimum of two quantities.
+\newcommand{\minimum}[2]{\ensuremath{{\mathrm {min}}(#1,#2)}}%
+
+%% If you frequently write the name of some device or technique, you might want
+%% to define a macro for it so that you can easily add a trademark notice or
+%% change the capitalization whenever the originator rebrands.
+\newcommand{\Phantom}{PHANTOM}%
+
+%% Your algorithm is always better than the naïve algorithm, right?
+\newcommand{\naive}{na\"{\i}ve}
+\newcommand{\Naive}{Na\"{\i}ve}
+
+%% Maybe you have a file of notation commands that you always use.
+%% No problem.  Just import it here.  Note that since we imported this file
+%% (rather than \inputting or \including it), the path to your file is
+%% relative to this directory.
+\import{}{hapticNotationCommands} 

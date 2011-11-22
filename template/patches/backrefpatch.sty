@@ -1,0 +1,39 @@
+%% The standard backref.sty does this processing in \BR@starttoc.
+%% However, this seems to cause problems in that while compiling,
+%% \@writefile commands are issued to write \backcite commands to
+%% the jobname.brf file, but (since \BR@starttoc can be triggered
+%% multiple times throughout the document) the .brf file is read
+%% (by the \@input command) before the \@writefile commands have
+%% been flushed.
+%% As a workaround, we move the commands from \BR@starttoc to the
+%% beginning of the document and add a (possibly unnecessary)
+%% block to close the output stream if it is open.
+%% One side effect of this change seems to be that when using
+%% bibunits, if a reference cross-references another reference
+%% (e.g., a chapter referencing the book that it is in), the
+%% cross-reference will link to the reference in the first
+%% bibliography in which it appears (rather than the local
+%% bibliography), and a backref link for the cross-referenced
+%% reference will be generated only to the cross-referer in the
+%% global bibliography (and to citations in the text).
+\AtBeginDocument{%
+  \begingroup%
+    \if@filesw%
+      \@ifundefined{tf@brf}{}{%
+        \immediate\closeout\csname tf@brf\endcsname%
+      }%
+    \fi%
+    \@input{\jobname.brf}%
+    \if@filesw%
+      \@ifundefined{tf@brf}{%
+        \expandafter\newwrite\csname tf@brf\endcsname
+      }{}%
+      \@ifundefined{tf@brf@open}{%
+        \immediate\openout\csname tf@brf\endcsname\jobname.brf\relax
+        \gdef\tf@brf@open{}%
+      }{}%
+    \fi%
+    \@nobreakfalse%
+  \endgroup%
+}%
+\makeatletter\def\BR@starttoc{}\makeatother%

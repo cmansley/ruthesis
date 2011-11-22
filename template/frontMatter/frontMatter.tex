@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% frontMatter.tex
+%% 2009.01.09 - tedmunds
+%%
+%% This file is the content file used to provide all the front-matter for the
+%% dissertation template.
+%% This file is included by the template's root file (../dissertation.tex).
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\ifelectronic%
+  %% The hyperref package doesn't automatically create a pdf bookmark for the
+  %% title page.  So we create one manually.
+  \phantomsection%
+  \pdfbookmark[0]{Titlepage}{titlepage}%
+\else \fi %electronic
+%% We use the \phd command (provided by the ruthesis document class) to specify
+%% that this dissertation is for a Ph.D.
+\phd%
+%% We use the \titletext and \authortext macros (that we defined in the document
+%% header) to create the dissertation title and author.
+\title{%
+  \titletext%
+}%
+\author{\authortext}%
+\program{The Graduate Program}%
+\director{Principal Advisor}%
+%% How many committee members have to sign?
+\approvals{4}%
+%% If \submissionyear and \submissionmonth aren't specified, the current year
+%% and month are used; the Graduate School would hate that.
+\submissionyear{2009}%
+\submissionmonth{January}%
+%
+%% Create the abstract
+\abstract{%
+\input{frontMatter/abstract}%
+}%
+%
+%% Issue the \beforepreface command to typeset the title page, abstract,
+%% copyright page
+\beforepreface%
+%
+%% Produce the preface
+\preface{%
+\input{frontMatter/preface}%
+}%
+%
+%% Produce the acknowledgements
+\acknowledgements{%
+\input{frontMatter/acknowledgements}%
+}%
+%% Produce the dedication
+\dedication{%
+\input{frontMatter/dedication}%
+}%
+%% If the personal boolean (set in the document root) is not true, omit the
+%% acknowledegments and dedication.
+\ifpersonal\else%
+\acknowledgementsfalse%
+\dedicationfalse%
+\fi% end ifpersonal
+%
+%% Issue the \afterpreface command to typeset the preface, acknowledgements,
+%% dedication, etc.
+\afterpreface

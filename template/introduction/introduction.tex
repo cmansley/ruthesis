@@ -1,0 +1,23 @@
+Pretty much every dissertation has an introduction.
+In fact, the \href{http://gsnb.rutgers.edu/guide.php3}{Graduate School Style Guide} expects that one will be present, and specifies that a formal heading must be used for the introduction.
+
+This document is not actually a dissertation.
+It is both a template for a dissertation, and a guide to the use of the \href{../ruthesis.cls}{\texttt{ruthesis} document class} and other packges/techniques to prepare dissertation manuscripts for the Rutgers Graduate School.
+
+This document is formatted like a dissertation (since it is also the template for creating dissertation manuscripts).
+In \autoref{sec:docClass}, the features of the \texttt{ruthesis} document class are described.
+\autoref{sec:templateStructure} describes how this template document is used with the \texttt{ruthesis} document class to prepare a dissertation manuscript.
+Some useful \LaTeX\ techniques for dissertation preparation are shown in \autoref{sec:ut}.
+Like any good dissertation, we draw conclusions in \autoref{sec:conclusion}.
+%
+\ifperchapterbib%
+\section[Document Structure]{\protect{\cbstart}Document Structure}%
+\label{sec:introduction:roadmap}%
+If the author is including endnotes at the end of each chapter (in accordance with one interpretation of the Graduate School's preferences), it might be a good idea to let the reader know, by including something like the next paragraph at the end of the introduction.
+
+For the convenience of the reader, a list of references is provided at the end of each chapter (where applicable).
+\ifendbib%
+A bibliography containing all cited references is included at the \hyperref[sec:bibliography]{end of the dissertation}.
+\else\fi% end ifendbib
+\cbend%
+\else\fi% end ifperchapterbib

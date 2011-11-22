@@ -1,0 +1,63 @@
+Most conference or journal papers are compiled from a single \LaTeX\ source file (along with off-the-shelf packages).
+However, given the large expected size of a dissertation, it is useful to make use of \LaTeX\'s ability to break up the code for a large document into multiple source files; this is the approach that is taken with the dissertation template.
+
+The root file of the template is \href{./dissertation.tex}{\texttt{dissertation.tex}}.
+That is the file that includes all the other source files that make up the template.
+It is also the file that is given as the argument to the compiler when building the document:
+\begin{quotation}%
+\texttt{latex dissertation.tex}
+\end{quotation}%
+
+The root file is the head of a source tree that contains all the other content.
+The tree is a useful format for a dissertation source collection, since each chapter's source can be contained in its own directory (possibly including a sub-tree of sections, figures, or other supporting material).
+
+The template's source tree includes a directory for the \texttt{header} (the document preamble), a directory for the \texttt{frontMatter} (abstract, preface, etc.), separate directories for each of the document chapters (\texttt{introduction}, \texttt{docClass}, \texttt{templateStructure}, \texttt{usefulTechniques}, \texttt{conclusion}), a directory for the \texttt{ap\-pendices}, and a directory for the \texttt{backMatter} (bibliography, C.V., etc.).
+Other directories in the source tree are the \texttt{bibliography} directory, which contains all the \BibTeX\ database files, and the \texttt{patches} directory, which contains bug-fixes for off-the-shelf packages.
+Of course, this tree structure can be rearranged to suit the needs of the dissertation (for example, \BibTeX\ database files could be placed within an individual chapter's directory if they are exclusive to that chapter).
+
+\subsection{\texttt{import} package}
+There are several ways to include other source files into the root source file in \LaTeX.
+The $\backslash$\texttt{input}\{{\it other file}\} command inserts the external file during compilation as though it were included in whole in the original source file.
+The $\backslash$\texttt{include}\{{\it other file}\} command does the same, except it typesets the included file on its own page(s).
+The $\backslash$\texttt{include}\{{\it other file}\} command is equivalent to:
+\begin{quotation}%
+$\backslash$\texttt{clearpage} $\backslash$\texttt{input}\{{\it other file}\} $\backslash$\texttt{clearpage}
+\end{quotation}%
+Both of these methods suffer from the fact that the included file is interpreted as though it were part of the original source file; unless the original source file is in the same directory as the included file, any relative links (such as further $\backslash$\texttt{input} commands) will be garbled.
+This makes it difficult to use these commands to build a tree-like directory structure for the source files of a dissertation.
+
+The \texttt{import} package addresses this situation by providing the
+\begin{quotation}%
+$\backslash$\texttt{import}\{{\it path}\}\{{\it file}\}
+\end{quotation}%
+command.
+This command preserves relative links (such as the search path for $\backslash$\texttt{includegraphics}), so the material for each chapter can be organized into separate folders, without any need to refer to the overall directory structure within the chapter.
+
+\subsection{A Word About Editors}
+Dividing a dissertation's source into multiple files carries certain benefits (such as compartmentalization, making it easier to find code, simpler version control), but it can provide challenges for your editor.
+If you are using a very simple editor (i.e., one that edits text and doesn't do much else), then the challenges are few --- you are already using the command line to compile your documents, and \LaTeX\ itself is smart enough to handle all the $\backslash$\texttt{input} or $\backslash$\texttt{import} commands.
+However, if you are using an editor that is trying to be more of an integrated development environment, then that editor has to understand about multi-file documents.
+
+\subsubsection{Windows Editors}
+Use \href{http://www.winedt.com}{WinEdt}.
+Seriously.
+Student licenses cost less than the publishing fee that the Graduate School is going to charge you when you submit your dissertation.
+Better yet, get your advisor to buy some site licenses for your lab; if your advisor starts talking about how Emacs does everything you need to do, back away slowly, without making any sudden movements.
+
+WinEdt does a good job of presenting the source code for a dissertation-sized \LaTeX\ document to the user in a meaningful way, while simplifying the process of compiling the source into a pdf (or ps, or dvi).
+The IDE-like interface of WinEdt includes a side-bar navigation tree of the source code (deduced from WinEdt's understanding of $\backslash$\texttt{input}, $\backslash$\texttt{include}, and $\backslash$\texttt{import} commands) and the document's labels and bibliography.
+The built-in compiler hooks (to the suggested \LaTeX\ application, MikTeX) includes the ability to jump to errors in the source (to the best of \LaTeX's admittedly limited ability to identify the source of an error).
+
+Included with this template distribution is the WinEdt project file, \href{./templateWinEdtProject.prj}{\texttt{tem\-plateWinEdtProject.prj}}.
+Using a project allows the author to specify which file is the root file of the document; whenever a compile command is executed, that file is used as the argument for the compiler, regardless of which file is currently being edited.
+
+WinEdt also includes some syntax highlighting and other features that one would expect from an IDE.
+
+\subsubsection{OS X Editors}
+Unfortunately, there don't seem to be any editors with WinEdt's features and capabilities available on the OS~X platform.
+\href{http://www.uoregon.edu/~koch/texshop/}{TeXShop}, an editor included in the \href{http://www.tug.org/mactex}{MacTex} distribution bundle, provides some of the IDE-like \LaTeX\ editing features, but lacks WinEdt's project-type structure that allows for easy management of multi-file source trees.
+TeXShop needs to be told for each file in the source tree what the root document is, so that when the Typeset command is issued, TeXShop doesn't just try to compile the current source file.
+
+\subsubsection{.*n.x Editors}
+Maybe you should go and ask your advisor about the wonders of Emacs.
+
